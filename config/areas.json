@@ -1,0 +1,14 @@
+[
+  { "id": "umeda", "name": "梅田", "lat": 34.7025, "lng": 135.4959, "radiusM": 1200 },
+  { "id": "nakazakicho", "name": "中崎町", "lat": 34.7070, "lng": 135.5050, "radiusM": 600 },
+  { "id": "fukushima", "name": "福島", "lat": 34.6970, "lng": 135.4860, "radiusM": 700 },
+  { "id": "tenma", "name": "天満", "lat": 34.7050, "lng": 135.5130, "radiusM": 700 },
+  { "id": "kyobashi", "name": "京橋", "lat": 34.6968, "lng": 135.5340, "radiusM": 800 },
+  { "id": "honmachi", "name": "本町", "lat": 34.6826, "lng": 135.4985, "radiusM": 800 },
+  { "id": "shinsaibashi", "name": "心斎橋", "lat": 34.6751, "lng": 135.5010, "radiusM": 700 },
+  { "id": "horie", "name": "堀江", "lat": 34.6730, "lng": 135.4920, "radiusM": 600 },
+  { "id": "namba", "name": "難波", "lat": 34.6666, "lng": 135.5011, "radiusM": 900 },
+  { "id": "shinsekai", "name": "新世界", "lat": 34.6525, "lng": 135.5063, "radiusM": 600 },
+  { "id": "tennoji", "name": "天王寺", "lat": 34.6466, "lng": 135.5133, "radiusM": 900 },
+  { "id": "bayarea", "name": "ベイエリア", "lat": 34.6560, "lng": 135.4320, "radiusM": 2500 }
+]

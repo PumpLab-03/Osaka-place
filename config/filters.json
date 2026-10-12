@@ -1,0 +1,7 @@
+{
+  "popular": { "minRating": 4.0, "minReviews": 1000 },
+  "hidden": { "minRating": 4.3, "minReviews": 100, "maxReviews": 999 },
+  "excludeTypes": ["fast_food_restaurant", "convenience_store", "supermarket", "gas_station"],
+  "chainMinBranches": 3,
+  "chainNameDenylist": ["マクドナルド", "スターバックス", "ケンタッキー", "モスバーガー", "吉野家", "すき家", "松屋", "サイゼリヤ", "ガスト", "コメダ", "ドトール", "タリーズ", "スシロー", "くら寿司", "はま寿司", "丸亀製麺", "CoCo壱番屋", "鳥貴族"]
+}
