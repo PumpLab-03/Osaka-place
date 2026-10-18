@@ -1,4 +1,4 @@
-name: 人気店ピックアップの定期更新
+name: お店の位置を更新
 
 on:
   schedule:
@@ -8,15 +8,18 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: picks-data
+
 jobs:
-  fetch:
+  run:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - run: node scripts/fetch-picks.mjs
+      - run: node scripts/refresh-locations.mjs
         env:
           GOOGLE_PLACES_API_KEY: ${{ secrets.GOOGLE_PLACES_API_KEY }}
       - name: 変更があればコミット
@@ -24,5 +27,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add src/data/picks.json
-          git diff --cached --quiet || git commit -m "人気店ピックアップを更新"
+          git diff --cached --quiet || git commit -m "お店の位置を更新"
           git push

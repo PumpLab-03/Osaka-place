@@ -1,13 +1,13 @@
 {
   "lunch": {
-    "queries": ["ランチ", "カフェ ランチ"],
+    "queries": ["ランチ"],
     "includedType": "restaurant"
   },
   "dinner": {
-    "queries": ["ディナー", "居酒屋", "焼肉"],
+    "queries": ["ディナー", "居酒屋"],
     "includedType": "restaurant"
   },
   "play": {
-    "queries": ["遊び スポット", "観光スポット", "水族館 動物園 美術館", "ボウリング カラオケ ゲームセンター"]
+    "queries": ["遊び 観光 スポット"]
   }
 }

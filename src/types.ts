@@ -12,7 +12,7 @@ export const CATEGORY_COLOR: Record<Category, string> = {
   play: '#e91e63',
 }
 
-/** 週1回の自動ピックアップ（scripts/fetch-picks.mjs が書き出す） */
+/** 自動ピックアップ（scripts/discover-picks.mjs が書き出し、refresh-locations.mjs が位置を更新する） */
 export interface Pick {
   placeId: string
   lat: number

@@ -9,7 +9,7 @@
 
 ## お店の選び方
 
-`scripts/fetch-picks.mjs` が Google Places API で大阪の主要エリア（`config/areas.json`）を検索し、次の条件で選びます（`config/filters.json` で変更できます）。
+`scripts/discover-picks.mjs` が Google Places API で大阪府全体をマス目に区切って検索し（`config/grid.json`）、次の条件で選びます（`config/filters.json` で変更できます）。大阪市中心部は1.5km、それ以外は3kmのマスです。
 
 | 区分 | 条件 |
 | --- | --- |
@@ -18,7 +18,7 @@
 
 ファストフードやチェーン店（同じ店名が3店舗以上、または除外リストにある店）は外します。
 
-Google の規約に合わせて、保存するのは **お店のIDと位置だけ** です。店名・星・口コミ数は選ぶときに使うだけで保存しません。そのため、地図は Google マップを使い、位置は週1回更新します。
+Google の規約に合わせて、保存するのは **お店のIDと位置だけ** です。店名・星・口コミ数は選ぶときに使うだけで保存しません。そのため地図は Google マップを使います。府全体の検索は3か月に1回だけ行い、間は `scripts/refresh-locations.mjs` が月2回、保存したお店の位置だけを取り直します（位置は30日以内に更新する決まりのため）。
 
 ## 手書きの紹介（編集部おすすめ）
 
@@ -42,7 +42,8 @@ Google の規約に合わせて、保存するのは **お店のIDと位置だ�
 ## 費用について
 
 - 地図の表示：月1万回まで無料
-- 月2回のピックアップ：1回の更新で約600回の検索（郊外エリアは1ページだけ検索して回数を抑えています）
+- 府全体の検索（3か月に1回）：1回あたり約1300〜2000回の検索
+- 位置の更新（月2回）：お店の数だけ位置を取得。位置だけの取得は毎月の無料枠に収まる想定
 - 手書きの紹介がない店をタップしたとき：店名だけを Google から取得（月5000回まで無料）
 
 Google Cloud で予算アラートと上限を設定しておくと安心です。
@@ -60,11 +61,12 @@ Google Cloud で予算アラートと上限を設定しておくと安心です�
 
 ```bash
 npm install
-npm run fetch-picks   # 人気店をピックアップ
+npm run discover-picks      # 府全体から人気店をピックアップ
+npm run refresh-locations   # 保存したお店の位置を取り直す
 npm run dev           # http://localhost:5173 で確認
 ```
 
-月2回の更新は GitHub Actions（`.github/workflows/fetch-picks.yml`）で自動実行できます。リポジトリの Secrets に `GOOGLE_PLACES_API_KEY` を登録してください。
+どちらも GitHub Actions（`.github/workflows/discover-picks.yml` と `refresh-locations.yml`）で自動実行されます。リポジトリの Secrets に `GOOGLE_PLACES_API_KEY` を登録してください。
 
 ## 今後の予定
 
