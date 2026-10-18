@@ -1,13 +1,48 @@
 {
-  "lunch": {
-    "queries": ["ランチ"],
-    "includedType": "restaurant"
+  "_comment": "areaSearch: config/areas.json の各エリア名で検索（繁華街の人気店を拾う）。gridSearch: config/grid.json のマス目で検索（府全体の取りこぼしを減らす）。",
+  "areaSearch": {
+    "lunch": {
+      "queries": [
+        "ランチ",
+        "カフェ ランチ"
+      ],
+      "includedType": "restaurant"
+    },
+    "dinner": {
+      "queries": [
+        "ディナー",
+        "居酒屋",
+        "焼肉"
+      ],
+      "includedType": "restaurant"
+    },
+    "play": {
+      "queries": [
+        "遊び スポット",
+        "観光スポット",
+        "水族館 動物園 美術館",
+        "ボウリング カラオケ ゲームセンター"
+      ]
+    }
   },
-  "dinner": {
-    "queries": ["ディナー", "居酒屋"],
-    "includedType": "restaurant"
-  },
-  "play": {
-    "queries": ["遊び 観光 スポット"]
+  "gridSearch": {
+    "lunch": {
+      "queries": [
+        "ランチ"
+      ],
+      "includedType": "restaurant"
+    },
+    "dinner": {
+      "queries": [
+        "ディナー",
+        "居酒屋"
+      ],
+      "includedType": "restaurant"
+    },
+    "play": {
+      "queries": [
+        "遊び 観光 スポット"
+      ]
+    }
   }
 }
