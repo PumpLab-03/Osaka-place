@@ -8,7 +8,7 @@ import { loadUserSpots, loadWantList, saveUserSpots, saveWantList } from './lib/
 import { CATEGORY_COLOR, CATEGORY_LABEL, type Category, type Spot, type UserSpot } from './types'
 
 const API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY as string | undefined
-const MAP_ID = (import.meta.env.VITE_GOOGLE_MAP_ID as string | undefined) || 'DEMO_MAP_ID'
+const MAP_ID = (import.meta.env.VITE_GOOGLE_MAP_ID as string | undefined) || 'ca3105992e28c5cf360fb94e'
 const OSAKA_CENTER = { lat: 34.6851, lng: 135.5016 }
 
 type Tab = Category | 'want'
