@@ -42,7 +42,7 @@ Google の規約に合わせて、保存するのは **お店のIDと位置だ�
 ## 費用について
 
 - 地図の表示：月1万回まで無料
-- 週1回のピックアップ：1回の更新で最大約320回の検索。毎月の無料枠を少し超える程度
+- 月2回のピックアップ：1回の更新で約600回の検索（郊外エリアは1ページだけ検索して回数を抑えています）
 - 手書きの紹介がない店をタップしたとき：店名だけを Google から取得（月5000回まで無料）
 
 Google Cloud で予算アラートと上限を設定しておくと安心です。
@@ -64,7 +64,7 @@ npm run fetch-picks   # 人気店をピックアップ
 npm run dev           # http://localhost:5173 で確認
 ```
 
-週1回の更新は GitHub Actions（`.github/workflows/fetch-picks.yml`）で自動実行できます。リポジトリの Secrets に `GOOGLE_PLACES_API_KEY` を登録してください。
+月2回の更新は GitHub Actions（`.github/workflows/fetch-picks.yml`）で自動実行できます。リポジトリの Secrets に `GOOGLE_PLACES_API_KEY` を登録してください。
 
 ## 今後の予定
 

@@ -1,8 +1,8 @@
-name: 人気店ピックアップの週次更新
+name: 人気店ピックアップの定期更新
 
 on:
   schedule:
-    - cron: '0 18 * * 0' # 毎週月曜 3:00 (JST)
+    - cron: '0 18 1,15 * *' # 毎月2日と16日の 3:00 (JST)。位置情報は30日以内に更新する必要がある
   workflow_dispatch:
 
 permissions:

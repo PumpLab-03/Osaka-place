@@ -1,4 +1,4 @@
-// 週1回実行して、人気店・穴場のピックアップを src/data/picks.json に書き出す。
+// 月2回実行して、人気店・穴場のピックアップを src/data/picks.json に書き出す。
 //
 // Google Maps Platform の規約に合わせて、保存するのは place ID と位置情報（30日以内に更新）だけ。
 // 店名・星・口コミ数は選ぶ判定にだけ使い、ファイルには残さない。
@@ -87,7 +87,7 @@ for (const area of areas) {
         ...(conf.includedType ? { includedType: conf.includedType } : {}),
       }
       let pageToken
-      for (let page = 0; page < MAX_PAGES; page++) {
+      for (let page = 0; page < (area.maxPages ?? MAX_PAGES); page++) {
         const data = await searchText(pageToken ? { ...body, pageToken } : body)
         for (const p of data.places ?? []) {
           if (p.businessStatus && p.businessStatus !== 'OPERATIONAL') continue
