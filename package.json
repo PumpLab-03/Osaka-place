@@ -8,7 +8,8 @@
     "build": "tsc -b && vite build",
     "preview": "vite preview",
     "discover-picks": "node --env-file=.env scripts/discover-picks.mjs",
-    "refresh-locations": "node --env-file=.env scripts/refresh-locations.mjs"
+    "refresh-locations": "node --env-file=.env scripts/refresh-locations.mjs",
+    "match-hotpepper": "node --env-file=.env scripts/match-hotpepper.mjs"
   },
   "dependencies": {
     "@vis.gl/react-google-maps": "^1.10.1",

@@ -1,0 +1,33 @@
+name: ホットペッパーの情報を更新
+
+on:
+  schedule:
+    - cron: '0 18 2 * *' # 毎月3日の 3:00 (JST)。3か月ごとのお店探し（2日）の翌日に新しいお店も紐づく
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: picks-data
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node scripts/match-hotpepper.mjs
+        env:
+          GOOGLE_PLACES_API_KEY: ${{ secrets.GOOGLE_PLACES_API_KEY }}
+          HOTPEPPER_API_KEY: ${{ secrets.HOTPEPPER_API_KEY }}
+      - name: 変更があればコミット
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add src/data/hotpepper.json
+          git diff --cached --quiet || git commit -m "ホットペッパーの情報を更新"
+          git push

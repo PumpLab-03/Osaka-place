@@ -1,9 +1,18 @@
 import { useMemo, useState } from 'react'
 import { AdvancedMarker, APIProvider, Map, Pin } from '@vis.gl/react-google-maps'
 import { AddSpotForm } from './components/AddSpotForm'
+import { FilterBar } from './components/FilterBar'
 import { SpotCard } from './components/SpotCard'
 import { WantList } from './components/WantList'
-import { buildSpots, defaultCategory, pickRandom } from './lib/spots'
+import {
+  buildSpots,
+  defaultCategory,
+  EMPTY_FILTERS,
+  genresOf,
+  matchesFilters,
+  pickRandom,
+  type Filters,
+} from './lib/spots'
 import { loadUserSpots, loadWantList, saveUserSpots, saveWantList } from './lib/storage'
 import { CATEGORY_COLOR, CATEGORY_LABEL, type Category, type Spot, type UserSpot } from './types'
 
@@ -29,11 +38,18 @@ export default function App() {
   const [addMode, setAddMode] = useState(false)
   const [addAt, setAddAt] = useState<LatLng | null>(null)
   const [bounds, setBounds] = useState<google.maps.LatLngBoundsLiteral | null>(null)
+  const [filters, setFilters] = useState<Filters>(EMPTY_FILTERS)
 
   const spots = useMemo(() => buildSpots(userSpots), [userSpots])
-  const visible = useMemo(
+  const inTab = useMemo(
     () => (tab === 'want' ? spots.filter((s) => want.includes(s.key)) : spots.filter((s) => s.categories.includes(tab))),
     [spots, tab, want],
+  )
+  const canFilter = tab === 'lunch' || tab === 'dinner'
+  const genres = useMemo(() => genresOf(inTab), [inTab])
+  const visible = useMemo(
+    () => (canFilter ? inTab.filter((s) => matchesFilters(s, filters)) : inTab),
+    [inTab, canFilter, filters],
   )
   const selected = spots.find((s) => s.key === selectedKey) ?? null
 
@@ -97,6 +113,18 @@ export default function App() {
               ♡ 行きたい
             </button>
           </nav>
+          {canFilter && genres.length > 0 && (
+            <FilterBar
+              filters={filters}
+              genres={genres}
+              resultCount={visible.length}
+              onChange={(next) => {
+                setFilters(next)
+                setSelectedKey(null)
+                setHighlighted([])
+              }}
+            />
+          )}
         </header>
 
         <div className={addMode ? 'map adding' : 'map'}>

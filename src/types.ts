@@ -33,6 +33,21 @@ export interface Editorial {
   tiktok?: boolean
 }
 
+/** ホットペッパーの情報（scripts/match-hotpepper.mjs が書き出す） */
+export interface HotPepperInfo {
+  id: string
+  name: string
+  genre: string
+  catch: string
+  budget: string
+  budgetAverage: string
+  /** 予算の上限（円）。不明なら null */
+  budgetMax: number | null
+  tags: string[]
+  photo: string
+  url: string
+}
+
 /** ユーザーが自分で追加したピン */
 export interface UserSpot {
   id: string
@@ -52,5 +67,6 @@ export interface Spot {
   categories: Category[]
   pick?: Pick
   editorial?: Editorial
+  hotpepper?: HotPepperInfo
   userSpot?: UserSpot
 }

@@ -44,7 +44,8 @@ Google の規約に合わせて、保存するのは **お店のIDと位置だ�
 - 地図の表示：月1万回まで無料
 - 府全体の検索（3か月に1回）：1回あたり約2000〜2500回の検索
 - 位置の更新（月2回）：お店の数だけ位置を取得。位置だけの取得は毎月の無料枠に収まる想定
-- 手書きの紹介がない店をタップしたとき：店名だけを Google から取得（月5000回まで無料）
+- ホットペッパーとの紐づけ（月1回）：新しく増えたお店の店名だけ Google から取得（Pro 枠、月5000回まで無料）。ホットペッパー API は無料
+- 手書きの紹介もホットペッパーの情報もない店をタップしたとき：店名だけを Google から取得（月5000回まで無料）
 
 Google Cloud で予算アラートと上限を設定しておくと安心です。
 
@@ -63,13 +64,17 @@ Google Cloud で予算アラートと上限を設定しておくと安心です�
 npm install
 npm run discover-picks      # 府全体から人気店をピックアップ
 npm run refresh-locations   # 保存したお店の位置を取り直す
+npm run match-hotpepper     # ホットペッパーと紐づけてジャンル・予算・雰囲気・写真を取る
 npm run dev           # http://localhost:5173 で確認
 ```
 
-どちらも GitHub Actions（`.github/workflows/discover-picks.yml` と `refresh-locations.yml`）で自動実行されます。リポジトリの Secrets に `GOOGLE_PLACES_API_KEY` を登録してください。
+どれも GitHub Actions（`.github/workflows/` の3つ）で自動実行されます。リポジトリの Secrets に `GOOGLE_PLACES_API_KEY` と `HOTPEPPER_API_KEY`（[ホットペッパー Webサービス](https://webservice.recruit.co.jp/register)で取得）を登録してください。
+
+## ホットペッパーの情報
+
+`scripts/match-hotpepper.mjs` が、ごはん屋さんのピックアップを店名と位置でホットペッパーのお店と紐づけ、ジャンル・予算・雰囲気（個室・飲み放題など）・写真を `src/data/hotpepper.json` に書き出します。ホットペッパーに載っていないお店には情報が付きません。アプリにはホットペッパーの利用規約にしたがってクレジットを表示しています。
 
 ## 今後の予定
 
 - 行きたいリストを2人・グループで共有（今はその端末の中にだけ保存）
-- 「デート向き」「予算」「雨の日OK」などの絞り込み
 - アプリ内の「行きたい」が多い順の人気ランキング

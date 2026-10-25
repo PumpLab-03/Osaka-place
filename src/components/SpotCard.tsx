@@ -41,9 +41,9 @@ function usePlaceName(placeId: string | undefined) {
 }
 
 export function SpotCard({ spot, wanted, onToggleWant, onClose, onDelete }: Props) {
-  const { pick, editorial, userSpot } = spot
-  const fetchedName = usePlaceName(editorial || userSpot ? undefined : pick?.placeId)
-  const name = editorial?.name ?? userSpot?.name ?? fetchedName ?? '読み込み中…'
+  const { pick, editorial, hotpepper, userSpot } = spot
+  const fetchedName = usePlaceName(editorial || hotpepper || userSpot ? undefined : pick?.placeId)
+  const name = editorial?.name ?? hotpepper?.name ?? userSpot?.name ?? fetchedName ?? '読み込み中…'
 
   return (
     <section className="card">
@@ -63,6 +63,30 @@ export function SpotCard({ spot, wanted, onToggleWant, onClose, onDelete }: Prop
         {userSpot && <span className="badge">自分で追加</span>}
       </div>
       <h2>{name}</h2>
+
+      {hotpepper && (
+        <div className="hotpepper">
+          {hotpepper.photo && (
+            <a href={hotpepper.url} target="_blank" rel="noreferrer">
+              <img src={hotpepper.photo} alt={hotpepper.name} loading="lazy" />
+            </a>
+          )}
+          <div className="hp-info">
+            {hotpepper.genre && <span className="badge">{hotpepper.genre}</span>}
+            {hotpepper.budget && <p className="hp-budget">予算 {hotpepper.budgetAverage || hotpepper.budget}</p>}
+            {hotpepper.catch && <p className="hp-catch">{hotpepper.catch}</p>}
+          </div>
+          {hotpepper.tags.length > 0 && (
+            <div className="badges">
+              {hotpepper.tags.map((t) => (
+                <span key={t} className="badge">
+                  {t}
+                </span>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
 
       {editorial?.comment && <p className="comment">{editorial.comment}</p>}
       {editorial?.menu && editorial.menu.length > 0 && (
@@ -88,6 +112,11 @@ export function SpotCard({ spot, wanted, onToggleWant, onClose, onDelete }: Prop
         <a className="link-btn" href={googleMapsUrl(spot)} target="_blank" rel="noreferrer">
           Googleマップで見る
         </a>
+        {hotpepper?.url && (
+          <a className="link-btn" href={hotpepper.url} target="_blank" rel="noreferrer">
+            ホットペッパーで見る
+          </a>
+        )}
         {editorial?.officialUrl && (
           <a className="link-btn" href={editorial.officialUrl} target="_blank" rel="noreferrer">
             公式サイト
@@ -104,6 +133,13 @@ export function SpotCard({ spot, wanted, onToggleWant, onClose, onDelete }: Prop
           </button>
         )}
       </div>
+      {hotpepper && (
+        <p className="credit">
+          <a href="http://webservice.recruit.co.jp/" target="_blank" rel="noreferrer">
+            Powered by ホットペッパーグルメ Webサービス
+          </a>
+        </p>
+      )}
     </section>
   )
 }
